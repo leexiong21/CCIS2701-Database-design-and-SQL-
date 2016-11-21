@@ -1,0 +1,116 @@
+1. Get all columns and records of the works_on table.
+SELECT *
+FROM works_on
+
+SELECT *
+FROM employee 
+2. Get the employee number of all employees in dept ‘d2’ 
+SELECT emp_no
+FROM employee
+WHERE dept_no = 'd2'
+
+SELECT emp_no
+FROM employee
+WHERE dept_no like 'd2'
+3. Get records and columns from employee where last name ends with ‘n’ 
+SELECT *
+FROM employee
+WHERE emp_lname like '%n';
+4. Get all records from department table where location is not ‘Dallas’ 
+SELECT *
+FROM department 
+WHERE location != 'Dallas' 
+5. Get all records from works_on table where enter_date is < 7/1/2007 
+SELECT job, enter_date 
+FROM works_on
+WHERE enter_date < '2007.7.1' 
+6. Get last name from employee table where dept_no is either ‘d1’ or ‘d3’ 
+SELECT emp_lname
+FROM employee
+WHERE dept_no = 'd1'
+
+7. Get all records from works_on table where project_no is less than ‘p3’ and job title is NULL 
+SELECT *
+FROM works_on
+WHERE project_no < 'p3' AND job is NULL 
+8. Get employee records where dept_no is either ‘d1’ or ‘d2’. Use IN operator. 
+SELECT *
+FROM employee
+WHERE dept_no IN ('d1','d2');
+--NOT IN ('d1','d2'); 
+9. Get all records from employee where emp_no is greater than 10000 but less than 26000. Use BETWEEN operator 
+SELECT *
+FROM employee
+WHERE emp_no> 10000 AND emp_no <26000 
+10. Display all records from works_on table and rename job column to Title and enter_date to ‘Start Date’ 
+SELECT job AS TITLE 
+FROM works_on 
+
+SELECT enter_date AS 'START DATE'
+FROM works_on 
+
+
+ 1. Find unique non-null jobs from works_on table. 
+	SELECT emp_no, project_no
+	FROM works_on WHERE project_no = 'p2' AND job IS not NULL
+
+2. Find records in Employee table where first name ends with ‘n’ 
+SELECT emp_fname, emp_lname, emp_no
+	FROM employee 
+	WHERE emp_fname like '%n';
+
+3. Find unique project_no in works_on table (use GROUP BY) 
+	SELECT project_no, job
+	FROM works_on
+	GROUP BY project_no, job;
+
+4. Find count of unique project_no in works_on table (use GROUP BY) 
+	SELECT project_no, count (*)
+	FROM works_on
+	GROUP BY project_no
+
+5. Find count of unique project_no in works_on table where count is more than 3 (use GROUP BY and HAVING) 
+	SELECT project_no
+	FROM works_on
+	GROUP BY project_no
+	HAVING COUNT (*) >3;
+
+
+6. Find first name and last name of employees who work in ‘Research’ department. (use subquery) 
+	SELECT emp_fname, emp_lname
+	FROM employee WHERE dept_no IN
+	(SELECT dept_no
+	 FROM department
+	WHERE dept_name = 'Research');
+
+7. Find first name and last name of employees who work in ‘Research’ department. (use join) 
+	SELECT emp_fname , emp_lname
+	FROM employee JOIN department ON 	
+	employee.dept_no = department.dept_no;
+	(SELECT dept_no
+	FROM department
+	WHERE dept_name = 'resreach');
+
+
+
+8. Find all records from employee where last name has two ‘r’. 
+	SELECT emp_fname, emp_lname, emp_no
+	FROM employee 
+	WHERE emp_lname like '%r%r%';
+
+9. Find employee last name who works on project ‘Apollo’ 
+	SELECT emp_lname
+	FROM employee
+	WHERE emp_no IN
+	(SELECT emp_no
+	FROM works_on WHERE project_no IN
+		(SELECT project_no
+		FROM project WHERE project_name = 'Apollo'));
+
+10. Find all employees from employee table. Sort the results by last name in descending order.  
+	SELECT emp_fname, emp_lname, dept_no
+	FROM employee 	
+	ORDER BY emp_lname DESC;
+	-- ORDER BY 2
+
+
